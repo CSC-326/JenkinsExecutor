@@ -49,20 +49,18 @@
     
     - name: ensure config dir exists
       file: 
-        path: /usr/local/config/
+        path: ~/settings
         state: directory
-        mode: 755
-      become: yes
 
     - name: copy db template
       template: 
         src: templates/db.properties.template
-        dest: /usr/local/config/db.properties
+        dest: ~/settings/db.properties
 
     - name: copy email template
       template: 
         src: templates/email.properties.template
-        dest: /usr/local/config/email.properties
+        dest: ~/settings/email.properties
 
     - name: Install maven
       apt: 
