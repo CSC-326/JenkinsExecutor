@@ -1,0 +1,10 @@
+name: ansible-srv
+vm:
+  ip: 192.168.14.14
+tools:
+  - ansible
+commands:
+  roles: ansible-playbook roles.yml
+  ping: ansible all -m ping -i inventory
+  install: ansible-playbook main.yml -i inventory
+  remote: ssh -i jenkins_rsa vagrant@192.168.14.100

@@ -1,0 +1,90 @@
+- hosts: all
+  vars:
+    - mysql_password: 326_jenkins_326
+    - jenkins_rsa_pubkey: "{{ lookup('file', 'jenkins_rsa.pub') }}"
+    - email: csc326ta18@gmail.com
+    - email_password: fillin
+
+  pre_tasks:
+    - name: update apt-get cache
+      command: apt-get update
+      become: yes
+
+  roles:
+    - {role: geerlingguy.java, become: yes}
+    - role: geerlingguy.mysql
+      mysql_root_password: "{{mysql_password}}"
+      mysql_user_password: "{{mysql_password}}"
+      mysql_bind_address: 127.0.0.1
+      become: yes
+
+  tasks: 
+
+    - name: Ensure group "jenkins" exists
+      group:
+        name: jenkins
+        state: present
+      become: yes
+
+    - name: Add the user 'jenkins' to group 'jenkins'
+      user:
+        name: jenkins
+        comment: Jenkins user
+        group: jenkins
+      become: yes
+    
+    - name: Get jenkins executor url
+      get_url:
+        url: https://csc326-jenkins.csc.ncsu.edu/jenkins/jnlpJars/slave.jar/
+        dest: /home/jenkins
+        validate_certs: False
+      become_user: jenkins
+      become: yes
+
+    # - name: Set authorized key
+    #   authorized_key:
+    #     user: jenkins
+    #     state: present
+    #     key: "{{jenkins_rsa_pubkey}}"
+    
+    - name: ensure config dir exists
+      file: 
+        path: /usr/local/config/
+        state: directory
+        mode: 755
+      become: yes
+
+    - name: copy db template
+      template: 
+        src: templates/db.properties.template
+        dest: /usr/local/config/db.properties
+
+    - name: copy email template
+      template: 
+        src: templates/email.properties.template
+        dest: /usr/local/config/email.properties
+
+    - name: Install maven
+      apt: 
+        update_cache: yes
+        package: maven
+      become: yes
+
+    - name: create symlink for maven
+      file:
+        src: /usr/share/maven
+        dest: /opt/maven
+        state: link
+      become: yes
+
+    - name: Install chrome
+      apt: 
+        update_cache: yes
+        deb: https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+      become: yes
+
+    - name: Install security module for chrome
+      apt: 
+        update_cache: yes
+        package: libnss3
+      become: yes
