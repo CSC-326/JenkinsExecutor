@@ -1,3 +1,60 @@
+# Computing Environments Workshop --- Setting up a Jenkins executor
+
+In this workshop, we will practice setting up a basic virtual environment and the following tasks:
+
+* setting up ansible and virtual machines
+* understanding ssh keys
+* accessing a virtual machine through ssh
+* running commands through ssh
+* Using ansible to manage an inventory of servers and run commands over ssh 
+* Practice installing `nginx` web server.
+* Run ansible-playbooks for creating an executor for iTrust/jenkins.
+* Verifying we can run build for iTrust!
+
+![overview](setup.md)
+
+## Pre-reqs
+
+You can clone this repo to get useful files for this workshop: `git clone https://github.com/CSC-326/JenkinsExecutor` and then `cd JenkinsExecutor`.
+
+### Ansible
+
+Warning: Ansible does not run on Windows! You'll have to install in VM/docker container.
+
+#### Mac/Linux
+
+```
+$ sudo easy_install pip # Can skip if already have pip
+$ sudo pip install ansible
+```
+
+#### Create VM with Ansible w/Baker (Ubuntu 16.04)
+
+Ensure you're running [latest Baker version (0.6.13)](https://docs.getbaker.io/installation/).
+You may need to also [update VirtualBox](https://www.virtualbox.org/wiki/Downloads), especially if you've upgraded MacOS to Mojave.
+
+In the current directory, you will find an virtual environment you can use to run ansible in a virtual machine:
+
+```yaml
+name: ansible-srv
+vm:
+  ip: 192.168.14.14
+tools:
+  - ansible
+commands:
+  roles: ansible-playbook roles.yml
+  ping: ansible all -m ping -i inventory
+  install: ansible-playbook main.yml -i inventory
+  remote: ssh -i jenkins_rsa vagrant@192.168.14.100
+```
+
+In a terminal, the top-level directory with "baker.yml", run `baker bake`. You can access machine with `baker ssh`.
+
+#### Create a VM for your executor
+
+You can use the baker.yml in `JenkinsExecutor/executor_vm/` to create a target server where we will be performing our installations.
+
+
 ## Setting up ssh keys
 
 You need a way to automatically connect to your server without having to manually authenicate each connection. Using a public/private key for ssh, you can ssh into your node VM from the Ansible Server automatically.
