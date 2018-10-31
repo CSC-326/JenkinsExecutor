@@ -52,8 +52,7 @@ In a terminal, the top-level directory with "baker.yml", run `baker bake`. You c
 
 #### Create a VM for your executor
 
-You can use the baker.yml in `JenkinsExecutor/executor_vm/` to create a target server where we will be performing our installations.
-
+You can create another vm for the executor by using the baker.yml in `JenkinsExecutor/executor_vm/` to create a target server where we will be performing our installations. Inside a terminal, set in the executor_vm directory, run `baker bake`.
 
 ## Setting up ssh keys
 
@@ -160,6 +159,9 @@ You should be able to verify that you have built your environment successfull!
 
 ![success](resources/build.png)
 
+## Setting up remote VM.
+
+You should be able to repeat these steps to configure a remote VM that you can use creating your exector for your project.
 
 #### Problems
 
