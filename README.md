@@ -94,5 +94,10 @@ Inside your target machine, you can now run:
 git clone https://github.ncsu.edu/engr-csc326-staff/iTrust2-v3
 ```
 
-Copy over the appropriate template files, and then run `mvn clean test verify checkstyle:checkstyle` to run build.
+
+
+Copy over the appropriate template files (in ~/settings), and then run 
+
+* `mvn -f pom-data.xml process-test-classes` to generate database.
+* `mvn clean test verify checkstyle:checkstyle` to run build.
 
