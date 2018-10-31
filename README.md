@@ -11,7 +11,7 @@ In this workshop, we will practice setting up a basic virtual environment and th
 * Run ansible-playbooks for creating an executor for iTrust/jenkins.
 * Verifying we can run build for iTrust!
 
-![overview](setup.md)
+![overview](resources/setup.md)
 
 ## Pre-reqs
 
