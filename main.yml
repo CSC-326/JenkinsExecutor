@@ -67,7 +67,7 @@
     # Keep copy for jenkins user.
     - name: copy settings for jenkins user too.
       shell: cp -r {{ ansible_env.HOME}}/settings/ /home/jenkins/
-      become_user: jenkins
+      # become_user: jenkins
       become: yes
 
     - name: Install maven
