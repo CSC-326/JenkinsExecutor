@@ -41,12 +41,14 @@
       become_user: jenkins
       become: yes
 
-    # - name: Set authorized key
-    #   authorized_key:
-    #     user: jenkins
-    #     state: present
-    #     key: "{{jenkins_rsa_pubkey}}"
+    - name: Set authorized key
+      authorized_key:
+        user: jenkins
+        state: present
+        key: "{{jenkins_rsa_pubkey}}"
+      become: yes
     
+    # Useful for local debugging
     - name: ensure config dir exists
       file: 
         path: ~/settings
@@ -61,6 +63,12 @@
       template: 
         src: templates/email.properties.template
         dest: ~/settings/email.properties
+
+    # Keep copy for jenkins user.
+    - name: copy settings for jenkins user too.
+      shell: cp -r {{ ansible_env.HOME}}/settings/ /home/jenkins/
+      become_user: jenkins
+      become: yes
 
     - name: Install maven
       apt: 
