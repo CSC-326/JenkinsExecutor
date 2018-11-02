@@ -163,6 +163,13 @@ You should be able to verify that you have built your environment successfull!
 
 You should be able to repeat these steps to configure a remote VM that you can use creating your exector for your project.
 
+Some options include:
+
+* Remote NCSU VCL https://vcl.ncsu.edu/
+* Digital Ocean https://www.digitalocean.com/
+* Amazon AWS https://aws.amazon.com/
+
+
 #### Problems
 
 A bug in openJDK8 that just landed Oct 29, 2018, which may cause `mvn` to behave funky: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=911925
