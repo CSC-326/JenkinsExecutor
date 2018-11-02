@@ -193,3 +193,11 @@ Updated pom.xml as work-around, by adding `<useSystemClassLoader>false</useSyste
     </configuration>
 
 ```
+
+### Email
+
+If you are failing the testEmail test on AWS. You may have to adjust your security settings. [See this post](https://stackoverflow.com/questions/45036620/how-do-i-use-gmail-smtp-with-port-587-on-aws-ec2).
+
+![securityaws](https://i.stack.imgur.com/W9M8B.png)
+
+If you are 
