@@ -136,10 +136,14 @@ Webserver should be dead!
 
 #### Setting up the executor
 
-* Running ping: `ansible all -m ping -i inventory`
-* Setting up roles: `ansible-playbook roles.yml`
-* Running install: `ansible-playbook main.yml -i inventory`
 * Testing remote connection: `ssh -i jenkins_rsa vagrant@192.168.14.100`
+  Make sure your ssh key works.
+* Running ping: `ansible all -m ping -i inventory`
+  This will verify you can connect to the remote VM. You might be asked to confirm the host signature (Type yes).
+* Setting up roles: `ansible-playbook roles.yml` (if running locally, you might need `sudo`, in order to install roles).
+  This will install roles for ansible, which makes it easier to run more advanced setup steps, such as installing mysql.
+* Running install: `ansible-playbook main.yml -i inventory`
+  This will run all the installation tasks (java,mysql,jenkins user, db and email property files) on your remote vm, listed in the inventory.
 
 
 #### Verifyfing setup.
