@@ -211,4 +211,13 @@ If you are failing the testEmail test on AWS. You may have to adjust your securi
 
 ![securityaws](https://i.stack.imgur.com/W9M8B.png)
 
+### non-jenkins user
+
+It is recommended that you properly setup the jenkins user and do not rely on another user such as ubuntu/root/etc. run the build. If you do try to use a root user to build, you'll additionally have to modify how chrome runs, to add these options to the test setup code:
+
+```Java
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
+```
+
 
